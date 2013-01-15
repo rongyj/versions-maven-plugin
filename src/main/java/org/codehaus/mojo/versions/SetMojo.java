@@ -52,7 +52,8 @@ import java.util.Set;
  * Sets the current projects version, updating the details of any child modules as necessary.
  *
  * @author Stephen Connolly
- * @goal set
+ * @goal set 
+ * @aggregator
  * @requiresProject true
  * @requiresDirectInvocation true
  * @since 1.0-beta-1
@@ -170,9 +171,10 @@ public class SetMojo
         }
 
         if ( getProject().getOriginalModel().getVersion() == null )
-        {
-			getLog().info("Project version is inherited from parent...skipping");
-			return;
+        {    
+			throw new MojoExecutionException( "Project version is inherited from parent." );
+			//getLog().info("Project version is inherited from parent...skipping");
+			//return;
         }
 
         if ( StringUtils.isEmpty( newVersion ) )
