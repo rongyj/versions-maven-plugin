@@ -902,16 +902,7 @@ public class PomHelper
             {
                 addDependencyAssocations( helper, expressionEvaluator, result,
                                           profile.getDependencyManagement().getDependencies(), false );
-            }      
-            //Added by Yongjun Rong to fix the multi module properties
-			List colProjects=project.getCollectedProjects();
-	        for (int i=0;i<colProjects.size();i++){
-	            MavenProject subProject= (MavenProject) colProjects.get(i);
-	            ExpressionEvaluator subExpressionEvaluator = helper.getExpressionEvaluator(subProject );
-	            Model subModel = getRawModel(subProject );
-	            addDependencyAssocations( helper, subExpressionEvaluator, result, subModel.getDependencies(), false );
-	        }
-	        //End Yongjun Rong
+            }                  
             addDependencyAssocations( helper, expressionEvaluator, result, profile.getDependencies(), false );
             if ( profile.getBuild() != null )
             {
@@ -927,14 +918,22 @@ public class PomHelper
                 addReportPluginAssociations( helper, expressionEvaluator, result, profile.getReporting().getPlugins() );
             }
         }
-
         // second, we add all the properties in the pom
         addProperties( helper, result, null, model.getProperties() );
         if ( model.getDependencyManagement() != null )
         {
             addDependencyAssocations( helper, expressionEvaluator, result,
                                       model.getDependencyManagement().getDependencies(), false );
+        }  
+		//Added by Yongjun Rong to fix the multi module properties
+		List colProjects=project.getCollectedProjects();
+        for (int i=0;i<colProjects.size();i++){
+            MavenProject subProject= (MavenProject) colProjects.get(i);
+            ExpressionEvaluator subExpressionEvaluator = helper.getExpressionEvaluator(subProject );
+            Model subModel = getRawModel(subProject );
+            addDependencyAssocations( helper, subExpressionEvaluator, result, subModel.getDependencies(), false );
         }
+        //End Yongjun Rong
         addDependencyAssocations( helper, expressionEvaluator, result, model.getDependencies(), false );
         if ( model.getBuild() != null )
         {

@@ -53,7 +53,6 @@ import java.util.Set;
  *
  * @author Stephen Connolly
  * @goal set 
- * @aggregator
  * @requiresProject true
  * @requiresDirectInvocation true
  * @since 1.0-beta-1
@@ -172,9 +171,9 @@ public class SetMojo
 
         if ( getProject().getOriginalModel().getVersion() == null )
         {    
-			throw new MojoExecutionException( "Project version is inherited from parent." );
-			//getLog().info("Project version is inherited from parent...skipping");
-			//return;
+			//throw new MojoExecutionException( "Project version is inherited from parent." );
+			getLog().info("Project version is inherited from parent...skipping");
+			return;
         }
 
         if ( StringUtils.isEmpty( newVersion ) )

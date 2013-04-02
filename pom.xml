@@ -9,7 +9,7 @@
 
   <groupId>org.codehaus.mojo</groupId>
   <artifactId>versions-maven-plugin</artifactId>
-  <version>2.0.1-BITT</version>
+  <version>2.0.2-BITT</version>
   <packaging>maven-plugin</packaging>
 
   <name>Versions Maven Plugin</name>
